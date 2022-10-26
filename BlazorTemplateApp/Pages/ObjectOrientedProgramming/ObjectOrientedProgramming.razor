@@ -1,0 +1,41 @@
+﻿@page "/ObjOriProg"
+
+<PageTitle>Object Oriented Programming</PageTitle>
+
+@foreach (var ko in koListe)
+{
+    <p>@($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}") <span>@(ko.KoOnly != null ? $"(KoOnly: {ko.KoOnly})" : string.Empty)</span> </p>
+    if (ko.GetId() == 4) // Hvis Ko Id == 4
+    {
+        ko.KoOnly = "Test"; // Sætter KoOnly (Ligger kun i Ko klassen)
+    }
+}
+
+<p>@($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}"))</p>
+
+@code {
+    public static string NavigateMe() => "/ObjOriProg";
+    public static string PageName() => "Object Oriented Programming";
+
+    private Puma puma { get; set; } = new(); // Ny Puma
+
+    private List<Ko> koListe { get; set; } = new(); // Ny liste af typen "Ko"
+
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
+        }
+
+        Console.WriteLine(); //Space
+
+        puma.Name = "Albert"; // Sætter name
+        puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
+
+        for (int i = 125; i < 127; i++) // Tilføjelse af køer hvor navnet er "ko" + 125 til 130
+        {
+            koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
+        }
+    }
+}
