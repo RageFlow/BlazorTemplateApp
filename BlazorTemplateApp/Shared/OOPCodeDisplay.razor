@@ -1,0 +1,43 @@
+﻿@inject CodeDisplayService codeDisplayService;
+
+@if (codeDisplayService.Files != null && codeDisplayService.Files.Count > 0)
+{
+    <div class="CodeDisplaySection card">
+        <p>Code display code:</p>
+        @foreach (var item in codeDisplayService.Files)
+        {
+            var title = item.Split("/").Last();
+
+            <PrettyCode CodeFile="@(github + item)"
+                CodeFileLineNumbers="1-1000"
+                CodeSectionFileLineNumbers=""
+                KeepOriginalLineNumbers="true"
+                ShowException="false"
+                Title="@title"
+                ShowCollapse="true"
+                IsCollapsed="true"
+                Theme="@PrettyCodeStyle" />
+        }
+
+        <div>
+            <span>Theme for CodeDisplay</span>
+            <button type="button" @onclick="@(async () => {PrettyCodeStyle = "SolarizedLight"; await codeDisplayService.RefreshFiles(); } )">Solarized Light</button>
+            <button type="button" @onclick="@(async () => {PrettyCodeStyle = "WinterIsComingDark"; await codeDisplayService.RefreshFiles(); } )">Winter Is Coming Dark</button>
+        </div>
+    </div>
+}
+
+@code {
+
+    void ko() => StateHasChanged();
+
+    protected override void OnInitialized()
+    {
+        codeDisplayService.OnChange += ko;
+    }
+
+    string PrettyCodeStyle = "WinterIsComingDark";
+
+    string github = "https://raw.githubusercontent.com/RageFlow/BlazorTemplateApp/master/BlazorTemplateApp/";
+
+}

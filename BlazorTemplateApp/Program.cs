@@ -1,5 +1,6 @@
 using BlazorPrettyCode;
 using BlazorTemplateApp;
+using BlazorTemplateApp.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Options;
@@ -16,6 +17,8 @@ internal class Program
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
         builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+        builder.Services.AddScoped<CodeDisplayService>();
 
         await builder.Build().RunAsync();
     }

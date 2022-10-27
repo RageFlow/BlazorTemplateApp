@@ -1,4 +1,5 @@
 ﻿@page "/ObjOriProg"
+@inject CodeDisplayService codeDisplayService;
 
 <PageTitle>Object Oriented Programming</PageTitle>
 
@@ -13,8 +14,6 @@
 
 <p>@($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}"))</p>
 
-<OOPCodeDisplay/>
-
 @code {
     public static string NavigateMe() => "/ObjOriProg";
     public static string PageName() => "Object Oriented Programming";
@@ -23,14 +22,12 @@
 
     private List<Ko> koListe { get; set; } = new(); // Ny liste af typen "Ko"
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         for (int i = 0; i < 4; i++)
         {
             koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
         }
-
-        Console.WriteLine(); //Space
 
         puma.Name = "Albert"; // Sætter name
         puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
@@ -39,5 +36,11 @@
         {
             koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
         }
+
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/ObjectOrientedProgramming/ObjectOrientedProgramming.razor",
+            "Pages/ObjectOrientedProgramming/Data.cs",
+            "Pages/ObjectOrientedProgramming/IntAbsEnum.cs"
+        });
     }
 }
