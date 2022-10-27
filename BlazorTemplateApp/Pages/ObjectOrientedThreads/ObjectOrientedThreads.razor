@@ -3,6 +3,7 @@
 @inject CodeDisplayService codeDisplayService;
 
 <PageTitle>Object Oriented Threads</PageTitle>
+<h3>Object Oriented Threads</h3>
 
 <div class="Console-Window">
 
@@ -36,6 +37,8 @@
             Exception = e.Message;
             return;
         }
+
+        StateHasChanged();
     }
 
     

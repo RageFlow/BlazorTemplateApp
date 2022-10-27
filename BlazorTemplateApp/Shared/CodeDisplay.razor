@@ -1,43 +1,102 @@
-﻿@inject CodeDisplayService codeDisplayService;
+﻿@using System.Net
+@using System.Text.Json
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
 
 @if (codeDisplayService.Files != null && codeDisplayService.Files.Count > 0)
 {
     <div class="CodeDisplaySection card">
         <span>Files Used:</span>
-        @foreach (var item in codeDisplayService.Files)
-        {
-            var title = item.Split("/").Last();
-
-            <PrettyCode CodeFile="@(github + item)"
-                CodeFileLineNumbers="1-1000"
-                CodeSectionFileLineNumbers=""
-                KeepOriginalLineNumbers="true"
-                ShowException="false"
-                Title="@title"
-                ShowCollapse="true"
-                IsCollapsed="true"
-                Theme="@PrettyCodeStyle" />
-        }
-
-        <div>
-            <span>Theme for CodeDisplay</span>
-            <button type="button" @onclick="@(async () => {PrettyCodeStyle = "SolarizedLight"; await codeDisplayService.RefreshFiles(); } )">Solarized Light</button>
-            <button type="button" @onclick="@(async () => {PrettyCodeStyle = "WinterIsComingDark"; await codeDisplayService.RefreshFiles(); } )">Winter Is Coming Dark</button>
+        <div class="CodeDisplaySectionInnerContainer">
+            @foreach (var item in observableCollection)
+            {
+                <div class="code-display-container">
+                    <div class="code-display-header">
+                        <h5>@item.Title</h5>
+                        <span class="button k-link" @onclick="@(() => item.Collapsed = !item.Collapsed)">@(item.Collapsed ? "Collapse Source" : "Expand Source")</span>
+                    </div>
+                    <div class="@(item.Collapsed ? "" : "collapse-code-display" ) code-display-content">
+                        <CodeSnippet Language="Language.csharp" Style="@codeSnippetStyle">
+                            @item.Content
+                        </CodeSnippet>
+                    </div>
+                </div>
+            }
+        </div>
+        <div style="margin-top: 10px;">
+            <span>Theme for CodeDisplay:</span>
+            <button type="button" @onclick="@(async () => {codeSnippetStyle = Style.VisualStudio; await RefreshCodeDisplay(); } )">Light</button>
+            <button type="button" @onclick="@(async () => {codeSnippetStyle = Style.StackoverflowDark; await RefreshCodeDisplay(); } )">Dark</button>
+            <button type="button" @onclick="@(async () => {codeSnippetStyle = Style.GitHubDarkDimmed; await RefreshCodeDisplay(); } )">GitHub Dark Dimmed</button>
         </div>
     </div>
 }
 
 @code {
+    ObservableCollection<CodeFileModel> observableCollection = new();
+    Style codeSnippetStyle { get; set; } = Style.DefaultStyle;
 
-    void ko() => StateHasChanged();
+    void ko() => GetFiles();
 
     protected override void OnInitialized()
     {
         codeDisplayService.OnChange += ko;
     }
 
-    string PrettyCodeStyle = "WinterIsComingDark";
+    private async Task RefreshCodeDisplay()
+    {
+        ObservableCollection<CodeFileModel> Temp = observableCollection;
+        observableCollection = new();
+        StateHasChanged();
 
-    string github = "https://raw.githubusercontent.com/RageFlow/BlazorTemplateApp/master/BlazorTemplateApp/";
+        await Task.Delay(100);
 
+        observableCollection = Temp;
+        StateHasChanged();
+    }
+
+    private async void GetFiles(){
+
+        observableCollection = new();
+
+        foreach (var item in codeDisplayService.Files)
+        {
+            observableCollection.Add(await GetFile(item));
+        }
+
+        StateHasChanged();
+    }
+
+    static string githubUrl = "https://raw.githubusercontent.com/RageFlow/BlazorTemplateApp/master/BlazorTemplateApp/";
+
+    static readonly HttpClient client = new HttpClient();
+
+    private async Task<CodeFileModel> GetFile(string getUrl)
+    {
+        CodeFileModel output = new();
+
+        output.Title = "Pages/" + getUrl.Split("Pages/").Last();
+
+        using (var response = await client.GetAsync(githubUrl + getUrl))
+        {
+            response.EnsureSuccessStatusCode();
+            Stream stream = await response.Content.ReadAsStreamAsync();
+
+            using (var reader = new StreamReader(stream))
+            {
+                var strContent = reader.ReadToEnd();
+
+                output.Content = strContent;
+            }
+        }
+
+        return output;
+    }
+
+    class CodeFileModel
+    {
+        public string Title { get; set; } = "";
+        public string Content { get; set; } = "";
+        public bool Collapsed { get; set; }
+    }
 }

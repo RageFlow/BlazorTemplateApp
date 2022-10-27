@@ -1,4 +1,3 @@
-using BlazorPrettyCode;
 using BlazorTemplateApp;
 using BlazorTemplateApp.Shared;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,8 +9,6 @@ internal class Program
     private static async Task Main(string[] args)
     {
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
-        //builder.Services.AddBaseAddressHttpClient();
-        builder.Services.AddBlazorPrettyCode();
 
         builder.RootComponents.Add<App>("#app");
         builder.RootComponents.Add<HeadOutlet>("head::after");
