@@ -22,7 +22,7 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
 
             puma.Name = "Albert"; // Sætter name
             puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
-            consoleEmulator.Add($"Dyr {puma.GetId()} ({puma.GetDyrType()} - {puma.GetType()}) har navn: {puma.Name} og farve: {puma.Color}");
+            consoleEmulator.Add($"Dyr {puma.GetId()} ({puma.GetDyrType()} - {puma.GetType().Name}) har navn: {puma.Name} og farve: {puma.Color}");
 
 
             for (int i = 125; i < 127; i++) // Tilføjelse af køer hvor navnet er "ko" + 125 til 130
