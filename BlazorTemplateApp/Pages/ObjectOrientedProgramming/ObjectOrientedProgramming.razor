@@ -1,22 +1,21 @@
 ﻿@page "/ObjOriProg"
+@using System.Collections.ObjectModel
 @inject CodeDisplayService codeDisplayService;
 
 <PageTitle>Object Oriented Programming</PageTitle>
 
-@foreach (var ko in koListe)
+@foreach (var item in observablecollection)
 {
-    <p>@($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}") <span>@(ko.KoOnly != null ? $"(KoOnly: {ko.KoOnly})" : string.Empty)</span> </p>
-    if (ko.GetId() == 4) // Hvis Ko Id == 4
-    {
-        ko.KoOnly = "Test"; // Sætter KoOnly (Ligger kun i Ko klassen)
-    }
+    <p>@item</p>
 }
-
-<p>@($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}"))</p>
 
 @code {
     public static string NavigateMe() => "/ObjOriProg";
     public static string PageName() => "Object Oriented Programming";
+
+    static string Exception = string.Empty;
+
+    static ObservableCollection<string> observablecollection = new();
 
     private Puma puma { get; set; } = new(); // Ny Puma
 
@@ -31,12 +30,20 @@
 
         puma.Name = "Albert"; // Sætter name
         puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
+        observablecollection.Add($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}");
+
 
         for (int i = 125; i < 127; i++) // Tilføjelse af køer hvor navnet er "ko" + 125 til 130
         {
             koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
         }
 
+        foreach (var ko in koListe)
+        {
+            observablecollection.Add($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}");
+        }
+
+        //Kode for at vise specifikke filer i CodeDisplay
         await codeDisplayService.UpdateFiles(new List<string>() {
             "Pages/ObjectOrientedProgramming/ObjectOrientedProgramming.razor",
             "Pages/ObjectOrientedProgramming/Data.cs",

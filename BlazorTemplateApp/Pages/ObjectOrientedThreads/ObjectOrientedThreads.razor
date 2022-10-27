@@ -1,0 +1,69 @@
+﻿@page "/ObjOriThre"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>Object Oriented Threads</PageTitle>
+
+@if (!String.IsNullOrEmpty(Exception))
+{
+    <h4>Exception: @Exception</h4>
+}
+
+@code {
+    public static string NavigateMe() => "/ObjOriThre";
+    public static string PageName() => "Object Oriented Threads";
+
+    static string Exception = string.Empty;
+
+    static ObservableCollection<string> observablecollection = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            MainThreads();
+        }
+        catch (Exception e)
+        {
+            Exception = e.Message;
+            return;
+        }
+
+        await Task.CompletedTask;
+    }
+
+    public static void MainThreads()
+    {
+        Action<object> action = (object obj) => Console.WriteLine($"Task={Task.CurrentId}, obj={obj}, Thread={Thread.CurrentThread.ManagedThreadId}");
+
+        // Create a task but do not start it.
+        Task t1 = new Task(action, "alpha");
+
+        // Construct a started task
+        Task t2 = Task.Factory.StartNew(action, "beta");
+        // Block the main thread to demonstrate that t2 is executing
+        t2.Wait();
+
+        // Launch t1
+        t1.Start();
+        Console.WriteLine($"t1 has been launched. (Main Thread={Thread.CurrentThread.ManagedThreadId})");
+
+        // Wait for the task to finish.
+        t1.Wait();
+
+        // Construct a started task using Task.Run.
+        String taskData = "delta";
+        Task t3 = Task.Run(() => Console.WriteLine($"Task={Task.CurrentId}, obj={taskData}, Thread={Thread.CurrentThread.ManagedThreadId}"));
+
+        // Wait for the task to finish.
+        t3.Wait();
+
+        // Construct an unstarted task
+        Task t4 = new Task(action, "gamma");
+        // Run it synchronously
+        t4.RunSynchronously();
+        // Although the task was run synchronously, it is a good practice
+        // to wait for it in the event exceptions were thrown by the task.
+        t4.Wait();
+    }
+}
