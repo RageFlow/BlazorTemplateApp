@@ -4,7 +4,12 @@
 
 <PageTitle>Object Oriented Programming</PageTitle>
 
-@foreach (var item in observablecollection)
+@if (!String.IsNullOrEmpty(Exception))
+{
+    <h4>Exception: @Exception</h4>
+}
+
+@foreach (var item in consoleEmulator)
 {
     <p>@item</p>
 }
@@ -14,40 +19,24 @@
     public static string PageName() => "Object Oriented Programming";
 
     static string Exception = string.Empty;
-
-    static ObservableCollection<string> observablecollection = new();
-
-    private Puma puma { get; set; } = new(); // Ny Puma
-
-    private List<Ko> koListe { get; set; } = new(); // Ny liste af typen "Ko"
+    static ObservableCollection<string> consoleEmulator = new();
 
     protected override async void OnInitialized()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
-        }
-
-        puma.Name = "Albert"; // Sætter name
-        puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
-        observablecollection.Add($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}");
-
-
-        for (int i = 125; i < 127; i++) // Tilføjelse af køer hvor navnet er "ko" + 125 til 130
-        {
-            koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
-        }
-
-        foreach (var ko in koListe)
-        {
-            observablecollection.Add($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}");
-        }
-
         //Kode for at vise specifikke filer i CodeDisplay
         await codeDisplayService.UpdateFiles(new List<string>() {
-            "Pages/ObjectOrientedProgramming/ObjectOrientedProgramming.razor",
-            "Pages/ObjectOrientedProgramming/Data.cs",
+            "Pages/ObjectOrientedProgramming/ObjData.cs",
             "Pages/ObjectOrientedProgramming/IntAbsEnum.cs"
         });
+
+        try
+        {
+            consoleEmulator = ObjData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            Exception = e.Message;
+            return;
+        }
     }
 }

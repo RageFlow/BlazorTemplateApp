@@ -1,5 +1,40 @@
-﻿namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
+﻿using System.Collections.ObjectModel;
+
+namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
 {
+
+    public static class ObjData
+    {
+        static ObservableCollection<string> consoleEmulator = new();
+        static Puma puma { get; set; } = new(); // Ny Puma
+        static List<Ko> koListe { get; set; } = new(); // Ny liste af typen "Ko"
+
+        public static ObservableCollection<string> MainMethod()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
+            }
+
+            puma.Name = "Albert"; // Sætter name
+            puma.InterfaceTestMethod("Puma Done!"); // Interface test metode
+            consoleEmulator.Add($"Dyr {puma.GetId()} ({puma.GetDyrType()}) har navn: {puma.Name} og farve: {puma.Color}");
+
+
+            for (int i = 125; i < 127; i++) // Tilføjelse af køer hvor navnet er "ko" + 125 til 130
+            {
+                koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)
+            }
+
+            foreach (var ko in koListe)
+            {
+                consoleEmulator.Add($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}");
+            }
+
+            return consoleEmulator;
+        }
+    }
+
     internal class Ko : DyrBase<Ko>
     {
         public string? KoOnly { get; set; }
