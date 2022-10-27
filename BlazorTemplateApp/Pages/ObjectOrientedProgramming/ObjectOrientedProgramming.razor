@@ -9,10 +9,15 @@
     <h4>Exception: @Exception</h4>
 }
 
-@foreach (var item in consoleEmulator)
-{
-    <p>@item</p>
-}
+<div class="Console-Window">
+
+    @foreach (var item in consoleEmulator)
+    {
+        <span>@item</span>
+    }
+
+</div>
+
 
 @code {
     public static string NavigateMe() => "/ObjOriProg";

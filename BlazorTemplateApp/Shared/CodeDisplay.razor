@@ -3,7 +3,7 @@
 @if (codeDisplayService.Files != null && codeDisplayService.Files.Count > 0)
 {
     <div class="CodeDisplaySection card">
-        <p>Code display code:</p>
+        <span>Files Used:</span>
         @foreach (var item in codeDisplayService.Files)
         {
             var title = item.Split("/").Last();

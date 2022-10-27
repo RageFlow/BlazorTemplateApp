@@ -85,6 +85,22 @@ button {
     border-style: solid;
 }
 
-.CodeDisplaySection{
+.CodeDisplaySection {
     padding: 10px;
+}
+
+.Console-Window {
+    border-radius: var(--border-radius);
+    border-width: 2px;
+    border-color: var(--border-color);
+    border-style: solid;
+    padding: 10px;
+    background: rgb(40, 40, 34);
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: flex-start;
+    font-family: "Fira Code";
+    margin-bottom: 10px;
 }

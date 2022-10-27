@@ -11,6 +11,8 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
 
         public static ObservableCollection<string> MainMethod()
         {
+            consoleEmulator.Clear();
+
             for (int i = 0; i < 4; i++)
             {
                 koListe.Add(new Ko() { Name = $"Ko{i}" }); // Tilføjelse af ny Ko med navn "Ko" + i (Tal "i" i for løkken)

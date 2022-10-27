@@ -4,15 +4,14 @@
 
 <PageTitle>Object Oriented Threads</PageTitle>
 
-@if (!String.IsNullOrEmpty(Exception))
-{
-    <h4>Exception: @Exception</h4>
-}
+<div class="Console-Window">
 
-@foreach (var item in consoleEmulator)
-{
-    <p>@item</p>
-}
+    @foreach (var item in consoleEmulator)
+    {
+        <span>@item</span>
+    }
+
+</div>
 
 @code {
     public static string NavigateMe() => "/ObjOriThre";

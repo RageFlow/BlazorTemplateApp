@@ -7,6 +7,8 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedThreads
         static ObservableCollection<string> consoleEmulator = new();
         public static ObservableCollection<string> MainMethod()
         {
+            consoleEmulator.Clear();
+
             Action<object> action = (object obj) => consoleEmulator.Add($"Task={Task.CurrentId}, obj={obj}, Thread={Thread.CurrentThread.ManagedThreadId}");
 
             // Create a task but do not start it.
