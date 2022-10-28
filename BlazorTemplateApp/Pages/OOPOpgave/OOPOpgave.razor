@@ -1,0 +1,49 @@
+﻿@page "/OOPOpgave"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>OOP Opgave</PageTitle>
+<h3>Object Oriented Programming Opgave</h3>
+
+@if (!String.IsNullOrEmpty(Exception))
+{
+    <h4>Exception: @Exception</h4>
+}
+
+<div class="Console-Window">
+    <ConsoleEmulator @bind-consoleData="OOPOpgaveData.consoleEmulator" />
+</div>
+
+@*<textarea class="Console-Window" placeholder="." title="Console" style="width: 100%;">
+    @foreach (var item in consoleEmulator)
+    {
+        @item
+    }
+</textarea>*@
+
+@code {
+    public static string NavigateMe() => "/OOPOpgave";
+    public static string PageName() => "Object Oriented Opgave";
+
+    static string Exception = string.Empty; 
+
+    protected override async void OnInitialized()
+    {
+        //Kode for at vise specifikke filer i CodeDisplay
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/OOPOpgave/OOPOpgaveData.cs"
+        });
+
+        try
+        {
+            OOPOpgaveData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            OOPOpgaveData.consoleEmulator.Add("Exception: " + e.Message);
+            return;
+        }
+
+        StateHasChanged();
+    }
+}

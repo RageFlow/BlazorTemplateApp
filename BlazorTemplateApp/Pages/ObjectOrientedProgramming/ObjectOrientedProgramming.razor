@@ -5,19 +5,9 @@
 <PageTitle>Object Oriented Programming</PageTitle>
 <h3>Object Oriented Programming</h3>
 
-@if (!String.IsNullOrEmpty(Exception))
-{
-    <h4>Exception: @Exception</h4>
-}
-
 <span>Console:</span>
 <div class="Console-Window">
-
-    @foreach (var item in consoleEmulator)
-    {
-        <span>@item</span>
-    }
-
+    <ConsoleEmulator @bind-consoleData="ObjData.consoleEmulator" />
 </div>
 
 
@@ -26,7 +16,6 @@
     public static string PageName() => "Object Oriented Programming";
 
     static string Exception = string.Empty;
-    static ObservableCollection<string> consoleEmulator = new();
 
     protected override async void OnInitialized()
     {
@@ -38,11 +27,11 @@
 
         try
         {
-            consoleEmulator = ObjData.MainMethod();
+           ObjData.MainMethod();
         }
         catch (Exception e)
         {
-            Exception = e.Message;
+            ObjData.consoleEmulator.Add("Exception: " + e.Message);
             return;
         }
 

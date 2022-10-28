@@ -5,13 +5,13 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
 
     public static class ObjData
     {
-        static ObservableCollection<string> consoleEmulator = new();
+        public static ObservableCollection<string> consoleEmulator = new();
         static Puma puma { get; set; } = new(); // Ny Puma
         static List<Ko> koListe { get; set; } = new(); // Ny liste af typen "Ko"
 
-        public static ObservableCollection<string> MainMethod()
+        public static void MainMethod()
         {
-            consoleEmulator.Clear(); // Reset Emulator
+            consoleEmulator = new(); // Reset Emulator
             koListe = new(); // Reset KoListe
             puma = new(); // Reset puma
 
@@ -34,8 +34,6 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
             {
                 consoleEmulator.Add($"Dyr {ko.GetId()} ({ko.GetDyrType()}) har navn: {ko.Name}");
             }
-
-            return consoleEmulator;
         }
     }
 

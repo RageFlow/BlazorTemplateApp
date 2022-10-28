@@ -1,0 +1,41 @@
+﻿@using System.Collections.ObjectModel
+
+
+@foreach (var item in consoleData)
+{
+    <div style="display: flex;width: 100%;">
+        @if (item != string.Empty)
+        {
+            <span style="padding-right: 5px">C:\</span>
+        }
+        else
+        {
+            <span style="opacity: 0;">|</span>
+        }
+        <span>@item</span>
+    </div>
+}
+
+<div style="display: flex;width: 100%;">
+    <span>C:\></span><input type="text" class="Console-Input" @bind-value="@consoleInput" @onkeyup="KeyboardUpEventHandler" />
+</div>
+
+@code {
+
+    [Parameter]
+    public ObservableCollection<string> consoleData { get; set; } = new();
+    [Parameter]
+    public EventCallback<ObservableCollection<string>> consoleDataChanged { get; set; }
+
+    private string consoleInput { get; set; } = "";
+
+    private void KeyboardUpEventHandler(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            consoleData.Add(consoleInput);
+            consoleInput = string.Empty;
+        }
+    }
+
+}

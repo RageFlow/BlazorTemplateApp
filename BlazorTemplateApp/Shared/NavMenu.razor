@@ -1,5 +1,6 @@
 ﻿@using BlazorTemplateApp.Pages.ObjectOrientedProgramming
 @using BlazorTemplateApp.Pages.ObjectOrientedThreads
+@using BlazorTemplateApp.Pages.OOPOpgave
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -28,6 +29,12 @@
             <NavLink class="nav-link" href="@ObjectOrientedThreads.NavigateMe()">
                 <span class="oi oi-plus" aria-hidden="true"></span>
                 <span class="nav-item-text">@ObjectOrientedThreads.PageName()</span>
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="@OOPOpgave.NavigateMe()">
+                <span class="oi oi-plus" aria-hidden="true"></span>
+                <span class="nav-item-text">@OOPOpgave.PageName()</span>
             </NavLink>
         </div>
     </nav>

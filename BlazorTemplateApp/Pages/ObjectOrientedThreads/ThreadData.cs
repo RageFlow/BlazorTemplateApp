@@ -4,10 +4,10 @@ namespace BlazorTemplateApp.Pages.ObjectOrientedThreads
 {
     public static class ThreadData
     {
-        static ObservableCollection<string> consoleEmulator = new();
+        public static ObservableCollection<string> consoleEmulator = new();
         public static ObservableCollection<string> MainMethod()
         {
-            consoleEmulator.Clear(); // Reset Emulator
+            consoleEmulator = new(); // Reset Emulator
 
             Action<object> action = (object obj) => consoleEmulator.Add($"Task={Task.CurrentId}, obj={obj}, Thread={Thread.CurrentThread.ManagedThreadId}");
 
