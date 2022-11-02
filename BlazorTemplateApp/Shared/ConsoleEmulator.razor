@@ -33,7 +33,7 @@
     [Parameter]
     public EventCallback<string> keyPressed { get; set; }
 
-    private string consoleInput { get; set; } = "";
+    private static string consoleInput { get; set; } = "";
 
     private void KeyboardUpEventHandler(KeyboardEventArgs args)
     {
@@ -47,7 +47,7 @@
         }
     }
 
-    private void RunCommand(string input)
+    private static void RunCommand(string input)
     {
 
     }
@@ -55,4 +55,6 @@
     private void KeyPressed(string key){
         keyPressed.InvokeAsync(key);
     }
+
+    public static void CleanInput() => consoleInput = string.Empty;
 }

@@ -16,6 +16,7 @@
 
     protected override async void OnInitialized()
     {
+        ConsoleEmulator.CleanInput();
         //Kode for at vise specifikke filer i CodeDisplay
         await codeDisplayService.UpdateFiles(new List<string>() {
             "Pages/TaskException/TaskExceptionData.cs"

@@ -56,6 +56,7 @@
 
     private async void GetFiles(){
 
+
         observableCollection = new();
 
         foreach (var item in codeDisplayService.Files)
@@ -63,7 +64,7 @@
             observableCollection.Add(await GetFile(item));
         }
 
-        StateHasChanged();
+        await RefreshCodeDisplay();
     }
 
     static string githubUrl = "https://raw.githubusercontent.com/RageFlow/BlazorTemplateApp/master/BlazorTemplateApp/";
