@@ -1,0 +1,38 @@
+﻿@page "/TestConsole"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>Test Console</PageTitle>
+<h3>Test Console</h3>
+
+<span>Console:</span>
+<ConsoleEmulator @bind-consoleData="TestConsoleData.consoleEmulator" keyPressed="TestConsoleData.KeyPressed" />
+
+@code {
+    public static string NavigateMe() => "/TestConsole";
+    public static string PageName() => "Object Oriented Opgave";
+
+    static string Exception = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        //Kode for at vise specifikke filer i CodeDisplay
+        //await codeDisplayService.UpdateFiles(new List<string>() {
+        //    "Pages/OOPOpgave/OOPOpgaveData.cs"
+        //});
+
+        try
+        {
+            TestConsoleData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            TestConsoleData.consoleEmulator.Add("Exception: " + e.Message);
+            return;
+        }
+
+        StateHasChanged();
+    }
+
+
+}

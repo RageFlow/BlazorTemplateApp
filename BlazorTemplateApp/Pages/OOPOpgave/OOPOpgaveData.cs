@@ -13,15 +13,23 @@ namespace BlazorTemplateApp.Pages.OOPOpgave
 
         private static AutoResetEvent _blockThread1 = new AutoResetEvent(false);
         private static AutoResetEvent _blockThread2 = new AutoResetEvent(true);
-        public static async void MainMethod()
+        public static void MainMethod()
         {
             consoleEmulator = new();
 
-            Thread thread1 = new Thread(new ThreadStart(DisplayThread_1));
-            Thread thread2 = new Thread(new ThreadStart(DisplayThread_2));
-            // start them
-            thread1.Start();
-            thread2.Start();
+            try
+            {
+                Thread thread1 = new Thread(new ThreadStart(DisplayThread_1));
+                Thread thread2 = new Thread(new ThreadStart(DisplayThread_2));
+                // start them
+                thread1.Start();
+                thread2.Start();
+            }
+            catch (Exception e)
+            {
+                consoleEmulator.Add("Exception: " + e.Message + " Target: " + e.TargetSite?.ToString() + $" - ( OOPOpgaveData.MainMethod() )");
+                return;
+            }
         }
 
         private static void DisplayThread_1()

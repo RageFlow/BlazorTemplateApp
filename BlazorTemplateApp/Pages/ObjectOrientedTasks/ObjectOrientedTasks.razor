@@ -1,0 +1,38 @@
+﻿@page "/ObjOriTasks"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>Object Oriented Tasks</PageTitle>
+<h3>Object Oriented Tasks</h3>
+
+<span>Console:</span>
+<ConsoleEmulator @bind-consoleData="TasksData.consoleEmulator" />
+
+@code {
+    public static string NavigateMe() => "/ObjOriTasks";
+    public static string PageName() => "Object Oriented Tasks";
+
+    static string Exception = string.Empty;
+
+    protected override async void OnInitialized()
+    {
+        //Kode for at vise specifikke filer i CodeDisplay
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/ObjectOrientedTasks/TasksData.cs"
+        });
+
+        try
+        {
+            TasksData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            TasksData.consoleEmulator.Add("Exception: " + e.Message);
+            return;
+        }
+
+        StateHasChanged();
+    }
+
+
+}

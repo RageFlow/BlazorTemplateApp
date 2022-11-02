@@ -1,4 +1,6 @@
-﻿namespace BlazorTemplateApp.Shared
+﻿using PSC.Blazor.Components.CodeSnippet;
+
+namespace BlazorTemplateApp.Shared
 {
     public class CodeDisplayService
     {
@@ -6,6 +8,8 @@
         {
             Files = new();
         }
+
+        public Style codeSnippetStyle { get; set; } = Style.DefaultStyle;
 
         public List<string> Files { get; private set; }
         private List<string>? NewFiles { get; set; }

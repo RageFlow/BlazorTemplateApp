@@ -1,0 +1,36 @@
+﻿@page "/TaskException"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>Task & Exception</PageTitle>
+<h3>Task & Eception Opgave</h3>
+
+<span>Console:</span>
+<ConsoleEmulator @bind-consoleData="TaskExceptionData.consoleEmulator" />
+
+@code {
+    public static string NavigateMe() => "/TaskException";
+    public static string PageName() => "Task & Eception Opgave";
+
+    static string Exception = string.Empty;
+
+    protected override async void OnInitialized()
+    {
+        //Kode for at vise specifikke filer i CodeDisplay
+        //await codeDisplayService.UpdateFiles(new List<string>() {
+        //    "Pages/OOPOpgave/OOPOpgaveData.cs"
+        //});
+
+        try
+        {
+            TaskExceptionData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            TaskExceptionData.consoleEmulator.Add("Exception: " + e.Message);
+            return;
+        }
+
+        StateHasChanged();
+    }
+}

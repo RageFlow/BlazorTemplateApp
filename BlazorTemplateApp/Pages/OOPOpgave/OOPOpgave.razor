@@ -5,21 +5,8 @@
 <PageTitle>OOP Opgave</PageTitle>
 <h3>Object Oriented Programming Opgave</h3>
 
-@if (!String.IsNullOrEmpty(Exception))
-{
-    <h4>Exception: @Exception</h4>
-}
-
-<div class="Console-Window">
-    <ConsoleEmulator @bind-consoleData="OOPOpgaveData.consoleEmulator" />
-</div>
-
-@*<textarea class="Console-Window" placeholder="." title="Console" style="width: 100%;">
-    @foreach (var item in consoleEmulator)
-    {
-        @item
-    }
-</textarea>*@
+<span>Console:</span>
+<ConsoleEmulator @bind-consoleData="OOPOpgaveData.consoleEmulator" />
 
 @code {
     public static string NavigateMe() => "/OOPOpgave";

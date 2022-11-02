@@ -2,7 +2,7 @@
 
 namespace BlazorTemplateApp.Pages.ObjectOrientedThreads
 {
-    public static class ThreadData
+    public static class TasksData
     {
         public static ObservableCollection<string> consoleEmulator = new();
         public static ObservableCollection<string> MainMethod()
