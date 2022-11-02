@@ -1,0 +1,37 @@
+﻿@page "/ObjectExample"
+@using System.Collections.ObjectModel
+@inject CodeDisplayService codeDisplayService;
+
+<PageTitle>Object Example</PageTitle>
+<h3>Object Example</h3>
+
+<span>Console:</span>
+<ConsoleEmulator @bind-consoleData="ObjectExampleData.consoleEmulator" />
+
+@code {
+    public static string NavigateMe() => "/ObjectExample";
+    public static string PageName() => "Object Example";
+
+    static string Exception = string.Empty;
+
+    protected override async void OnInitialized()
+    {
+        //Kode for at vise specifikke filer i CodeDisplay
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/ObjectExample/ObjectExampleData.cs",
+            "Pages/ObjectExample/IntAbsEnum.cs"
+        });
+
+        try
+        {
+            ObjectExampleData.MainMethod();
+        }
+        catch (Exception e)
+        {
+            ObjectExampleData.consoleEmulator.Add("Exception: " + e.Message);
+            return;
+        }
+
+        StateHasChanged();
+    }
+}

@@ -1,16 +1,16 @@
-﻿@page "/ObjOriTasks"
+﻿@page "/Tasks"
 @using System.Collections.ObjectModel
 @inject CodeDisplayService codeDisplayService;
 
-<PageTitle>Object Oriented Tasks</PageTitle>
-<h3>Object Oriented Tasks</h3>
+<PageTitle>Tasks</PageTitle>
+<h3>Tasks</h3>
 
 <span>Console:</span>
 <ConsoleEmulator @bind-consoleData="TasksData.consoleEmulator" />
 
 @code {
-    public static string NavigateMe() => "/ObjOriTasks";
-    public static string PageName() => "Object Oriented Tasks";
+    public static string NavigateMe() => "/Tasks";
+    public static string PageName() => "Tasks";
 
     static string Exception = string.Empty;
 
@@ -18,7 +18,7 @@
     {
         //Kode for at vise specifikke filer i CodeDisplay
         await codeDisplayService.UpdateFiles(new List<string>() {
-            "Pages/ObjectOrientedTasks/TasksData.cs"
+            "Pages/Tasks/TasksData.cs"
         });
 
         try

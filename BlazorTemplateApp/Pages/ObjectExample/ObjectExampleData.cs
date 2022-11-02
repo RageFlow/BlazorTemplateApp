@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
+namespace BlazorTemplateApp.Pages.ObjectExample
 {
 
-    public static class ObjData
+    public static class ObjectExampleData
     {
         public static ObservableCollection<string> consoleEmulator = new();
         static Puma puma { get; set; } = new(); // Ny Puma

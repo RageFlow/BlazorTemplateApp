@@ -10,16 +10,16 @@
 
 @code {
     public static string NavigateMe() => "/TestConsole";
-    public static string PageName() => "Object Oriented Opgave";
+    public static string PageName() => "Test Console";
 
     static string Exception = string.Empty;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         //Kode for at vise specifikke filer i CodeDisplay
-        //await codeDisplayService.UpdateFiles(new List<string>() {
-        //    "Pages/OOPOpgave/OOPOpgaveData.cs"
-        //});
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/TestConsole/TestConsole.Data.cs"
+        });
 
         try
         {

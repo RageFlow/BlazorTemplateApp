@@ -1,4 +1,4 @@
-﻿namespace BlazorTemplateApp.Pages.ObjectOrientedProgramming
+﻿namespace BlazorTemplateApp.Pages.ObjectExample
 {
     internal interface ITestInterface<T>
     {

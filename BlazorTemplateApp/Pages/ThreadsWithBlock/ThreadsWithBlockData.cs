@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
-namespace BlazorTemplateApp.Pages.OOPOpgave
+namespace BlazorTemplateApp.Pages.ThreadsWithBlock
 {
-    public class OOPOpgaveData
+    public class ThreadsWithBlockData
     {
         public static ObservableCollection<string> consoleEmulator = new();
 
@@ -27,7 +25,7 @@ namespace BlazorTemplateApp.Pages.OOPOpgave
             }
             catch (Exception e)
             {
-                consoleEmulator.Add("Exception: " + e.Message + " Target: " + e.TargetSite?.ToString() + $" - ( OOPOpgaveData.MainMethod() )");
+                consoleEmulator.Add("Exception: " + e.Message + " Target: " + e.TargetSite?.ToString() + $" - ( ThreadsWithBlock.MainMethod() )");
                 return;
             }
         }

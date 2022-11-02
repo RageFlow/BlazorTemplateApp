@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace BlazorTemplateApp.Pages.ObjectOrientedThreads
+namespace BlazorTemplateApp.Pages.Tasks
 {
     public static class TasksData
     {

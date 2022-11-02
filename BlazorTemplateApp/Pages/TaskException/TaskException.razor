@@ -3,23 +3,23 @@
 @inject CodeDisplayService codeDisplayService;
 
 <PageTitle>Task & Exception</PageTitle>
-<h3>Task & Eception Opgave</h3>
+<h3>Task & Eception</h3>
 
 <span>Console:</span>
 <ConsoleEmulator @bind-consoleData="TaskExceptionData.consoleEmulator" />
 
 @code {
     public static string NavigateMe() => "/TaskException";
-    public static string PageName() => "Task & Eception Opgave";
+    public static string PageName() => "Task & Eception";
 
     static string Exception = string.Empty;
 
     protected override async void OnInitialized()
     {
         //Kode for at vise specifikke filer i CodeDisplay
-        //await codeDisplayService.UpdateFiles(new List<string>() {
-        //    "Pages/OOPOpgave/OOPOpgaveData.cs"
-        //});
+        await codeDisplayService.UpdateFiles(new List<string>() {
+            "Pages/TaskException/TaskExceptionData.cs"
+        });
 
         try
         {

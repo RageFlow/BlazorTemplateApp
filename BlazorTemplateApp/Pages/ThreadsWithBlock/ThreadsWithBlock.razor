@@ -1,16 +1,16 @@
-﻿@page "/OOPOpgave"
+﻿@page "/ThreadsWithBlock"
 @using System.Collections.ObjectModel
 @inject CodeDisplayService codeDisplayService;
 
-<PageTitle>OOP Opgave</PageTitle>
-<h3>Object Oriented Programming Opgave</h3>
+<PageTitle>Threads With Block</PageTitle>
+<h3>Threads With Block</h3>
 
 <span>Console:</span>
-<ConsoleEmulator @bind-consoleData="OOPOpgaveData.consoleEmulator" />
+<ConsoleEmulator @bind-consoleData="ThreadsWithBlockData.consoleEmulator" />
 
 @code {
-    public static string NavigateMe() => "/OOPOpgave";
-    public static string PageName() => "Object Oriented Opgave";
+    public static string NavigateMe() => "/ThreadsWithBlock";
+    public static string PageName() => "Threads With Block";
 
     static string Exception = string.Empty; 
 
@@ -18,16 +18,16 @@
     {
         //Kode for at vise specifikke filer i CodeDisplay
         await codeDisplayService.UpdateFiles(new List<string>() {
-            "Pages/OOPOpgave/OOPOpgaveData.cs"
+            "Pages/ThreadsWithBlock/ThreadsWithBlockData.cs"
         });
 
         try
         {
-            OOPOpgaveData.MainMethod();
+            ThreadsWithBlockData.MainMethod();
         }
         catch (Exception e)
         {
-            OOPOpgaveData.consoleEmulator.Add("Exception: " + e.Message);
+            ThreadsWithBlockData.consoleEmulator.Add("Exception: " + e.Message);
             return;
         }
 
